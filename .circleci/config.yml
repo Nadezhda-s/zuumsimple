@@ -19,9 +19,15 @@ jobs:
           name: Validate terraform code
           command: |
             printf "Validating terraform code\n"
-            for i in <<parameters.envs>>; do
-               echo "test: $i"
+            CURRENT_COLLECTIONS=("Test CREATE Company Trailer" "Test CONTACT DELETE")
+            IFS=$'\n' COLLECTIONS=($(curl --silent --location --request GET "https://api.getpostman.com/workspaces/ae97ca88-e6f4-45f0-a52b-b98b062147d6" --header "X-API-Key: PMAK-60114e5616781300515026ea-3880a4a028557edf774fbb4d0a705088a0"| jq -r '.workspace.collections[] | "\(.id)\t\(.name)"'))
+            for c in "${COLLECTIONS[@]}"; do 
+              items=($(echo ${c} | tr "\\t" "\n"));  if [[ " ${CURRENT_COLLECTIONS[@]} " =~ " ${items[1]} " ]]; then echo -e "\t- GUID: ${items[0]};\t- Name: ${items[1]}"; fi; 
+              echo items
             done
+            #for i in <<parameters.envs>>; do
+             #  echo "test: $i"
+            #done
       - newman/newman-run:
           collection: https://api.getpostman.com/collections/14096194-232d230d-7d84-4e62-840e-276098f18a42?apikey=PMAK-60114e5616781300515026ea-3880a4a028557edf774fbb4d0a705088a0 --environment https://api.getpostman.com/environments/14096194-0aa36cea-54f6-4110-839c-8c6f34d21221?apikey=PMAK-60114e5616781300515026ea-3880a4a028557edf774fbb4d0a705088a0
           
