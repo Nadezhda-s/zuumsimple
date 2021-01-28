@@ -12,8 +12,7 @@ jobs:
       - checkout
       - newman/newman-run:
           collection: https://api.getpostman.com/collections/14096194-6d2b4a6f-ed5c-459e-a798-cd74345f84ea?apikey=PMAK-60114e5616781300515026ea-3880a4a028557edf774fbb4d0a705088a0 --environment https://api.getpostman.com/environments/14096194-0aa36cea-54f6-4110-839c-8c6f34d21221?apikey=PMAK-60114e5616781300515026ea-3880a4a028557edf774fbb4d0a705088a0
-          additional-options: -r cli,junit
-
+          
 # Orchestrate or schedule a set of jobs
 workflows:
   version: 2
