@@ -16,7 +16,6 @@ jobs:
     executor: newman/postman-newman-docker
     steps:      
       - checkout
-      - jq/install
       - run:
           name: Validate terraform code
           command: |
