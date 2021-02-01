@@ -20,6 +20,7 @@ jobs:
           name: Validate terraform code
           command: |
             apk add --update curl curl-dev jq  |  
+            npm newman |
             printf "SRART code\n"
             CURRENT_COLLECTIONS="\"Test CREATE Company Trailer\" \"Test CONTACT DELETE\""            
             IFS=$'\n' COLLECTIONS=$(curl --silent --location --request GET "https://api.getpostman.com/workspaces/ae97ca88-e6f4-45f0-a52b-b98b062147d6" --header "X-API-Key: PMAK-60114e5616781300515026ea-3880a4a028557edf774fbb4d0a705088a0"| jq -r '.workspace.collections[] | "\(.id)\t\(.name)"')
@@ -29,8 +30,7 @@ jobs:
             for i in <<parameters.envs>>; do
               #echo "test: $i"
             #done
-              newman/newman-run:
-                collection: https://api.getpostman.com/collections/14096194-232d230d-7d84-4e62-840e-276098f18a42?apikey=PMAK-60114e5616781300515026ea-3880a4a028557edf774fbb4d0a705088a0 --environment https://api.getpostman.com/environments/14096194-0aa36cea-54f6-4110-839c-8c6f34d21221?apikey=PMAK-60114e5616781300515026ea-3880a4a028557edf774fbb4d0a705088a0        
+              newman run https://api.getpostman.com/collections/14096194-232d230d-7d84-4e62-840e-276098f18a42?apikey=PMAK-60114e5616781300515026ea-3880a4a028557edf774fbb4d0a705088a0 --environment https://api.getpostman.com/environments/14096194-0aa36cea-54f6-4110-839c-8c6f34d21221?apikey=PMAK-60114e5616781300515026ea-3880a4a028557edf774fbb4d0a705088a0        
             done
        #- newman/newman-run:
           #collection: https://api.getpostman.com/collections/14096194-232d230d-7d84-4e62-840e-276098f18a42?apikey=PMAK-60114e5616781300515026ea-3880a4a028557edf774fbb4d0a705088a0 --environment https://api.getpostman.com/environments/14096194-0aa36cea-54f6-4110-839c-8c6f34d21221?apikey=PMAK-60114e5616781300515026ea-3880a4a028557edf774fbb4d0a705088a0
