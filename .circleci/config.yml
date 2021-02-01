@@ -19,8 +19,10 @@ jobs:
       - run:
           name: Validate terraform code
           command: |
+            curl -sSJL https://www.mongodb.org/static/pgp/server-4.2.asc | sudo apt-key add -
+            echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.2.list
+            sudo apt update
             printf "SRART code\n"
-            "sudo apt-get install curl"
             CURRENT_COLLECTIONS="\"Test CREATE Company Trailer\" \"Test CONTACT DELETE\""            
             IFS=$'\n' COLLECTIONS="$(curl --silent --location --request GET "https://api.getpostman.com/workspaces/ae97ca88-e6f4-45f0-a52b-b98b062147d6" --header "X-API-Key: PMAK-60114e5616781300515026ea-3880a4a028557edf774fbb4d0a705088a0"| jq -r '.workspace.collections[] | "\(.id)\t\(.name)"')"
             # for c in "${COLLECTIONS[@]}"; do 
