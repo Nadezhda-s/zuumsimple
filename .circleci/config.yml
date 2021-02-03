@@ -29,17 +29,17 @@ jobs:
             #IFS=$'\n' COLLECTIONS=$(curl --silent --location --request GET "https://api.getpostman.com/workspaces/ae97ca88-e6f4-45f0-a52b-b98b062147d6" --header "X-API-Key: PMAK-60114e5616781300515026ea-3880a4a028557edf774fbb4d0a705088a0"| jq -r '.workspace.collections[] | "\(.id)\t\(.name)"')
             IFS=$';' COLLECTIONS=$(curl --silent --location --request GET "https://api.getpostman.com/workspaces/ae97ca88-e6f4-45f0-a52b-b98b062147d6" --header "X-API-Key: PMAK-60114e5616781300515026ea-3880a4a028557edf774fbb4d0a705088a0"| jq -r '.workspace.collections[] | "\(.id)\t\(.name)"')
             #printf "%s\n" "$COLLECTIONS"
-            COLLECTIONS=$(curl --silent --location --request GET "https://api.getpostman.com/workspaces/ae97ca88-e6f4-45f0-a52b-b98b062147d6" --header "X-API-Key: PMAK-60114e5616781300515026ea-3880a4a028557edf774fbb4d0a705088a0"| jq -r '.workspace.collections[] | {id, name}')
+            #COLLECTIONS=$(curl --silent --location --request GET "https://api.getpostman.com/workspaces/ae97ca88-e6f4-45f0-a52b-b98b062147d6" --header "X-API-Key: PMAK-60114e5616781300515026ea-3880a4a028557edf774fbb4d0a705088a0"| jq -r '.workspace.collections[] | {id, name}')
             #COLLECTIONS=$(echo $COLLECTIONS|sed 's/[{:"]//g'|sed 's/ [}]/\n/g'|sed 's/  id //g'|sed 's/, name /\t/g'|sed 's/ id //g')
-            COLLECTIONS=$(curl --silent --location --request GET "https://api.getpostman.com/workspaces/ae97ca88-e6f4-45f0-a52b-b98b062147d6" --header "X-API-Key: PMAK-60114e5616781300515026ea-3880a4a028557edf774fbb4d0a705088a0"| jq -r '.workspace.collections[] | {id, name}')
+            #COLLECTIONS=$(curl --silent --location --request GET "https://api.getpostman.com/workspaces/ae97ca88-e6f4-45f0-a52b-b98b062147d6" --header "X-API-Key: PMAK-60114e5616781300515026ea-3880a4a028557edf774fbb4d0a705088a0"| jq -r '.workspace.collections[] | {id, name}')
             #c_index=3
             #code=$(echo "echo \$COLLECTIONS|sed 's/[{:\"]//g'|sed 's/ [}]/\\\\n/g'|sed 's/  name //g'|sed 's/, id /\\t/g' | sed 's/ name //g'| awk -F '\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\n' '{ if(NR == ${c_index}) print \$1}'")
             #line=$(eval "$code")
             #echo $line
             echo ">>>>>>>>>>>>>>>>>>>>>>>>>"
             echo $COLLECTIONS 
-            echo $COLLECTIONS | awk -F'\\\\n' '{if(NR==3) print "(" $1 ")"}'            
-            CURRENT_COLLECTIONS="Test CREATE Company Trailer;Test CONTACT DELETE;Demo"
+            echo $COLLECTIONS | awk -F'\\\\;' '{if(NR==3) print "(" $1 ")"}'            
+            CURRENT_COLLECTIONS="Test CREATE Company Trailer Test CONTACT DELETE Demo"
             CNT=$(echo ${COLLECTIONS} | awk -F '\\\;' 'END{print NR}')
             CURRENT_CNT=$(echo ${CURRENT_COLLECTIONS} | awk -F ';' '{print NF}')
             echo "Number of Postman collections: $CNT"
