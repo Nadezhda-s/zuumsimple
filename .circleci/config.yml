@@ -45,7 +45,8 @@ jobs:
             echo $COLLECTIONS 
             echo $COLLECTIONS | awk -F'\\\\n' '{if(NR==3) print "(" $1 ")"}'            
             CURRENT_COLLECTIONS="Test CREATE Company Trailer;Test CONTACT DELETE;Demo"
-            CNT=$(echo ${COLLECTIONS} | awk -F '\\\n' 'END{print NR}')
+            CNT=15
+            #$(echo ${COLLECTIONS} | awk -F '\\\n' 'END{print NR}')
             CURRENT_CNT=$(echo ${CURRENT_COLLECTIONS} | awk -F ';' '{print NF}')
             echo "Number of Postman collections: $CNT"
             echo "Number of current collections: $CURRENT_CNT"
@@ -58,15 +59,18 @@ jobs:
               cc_index=$(expr $cc_index + 1)
             done            
             SEP="\\\\\\\\\\\\\\\\n"
-            c_index=1
+            c_index=0
             echo "##################################"
             while [ $c_index -lt $(expr $CNT + 1) ]; do
-              code=$(echo "echo \${COLLECTIONS} | awk -F '$SEP' '{ if(NR==${c_index}) print \$1}'")
+              # code=$(echo "echo \${COLLECTIONS} | awk -F '$SEP' '{ if(NR==${c_index}) print \$1}'")
+              code=$(echo "echo \$COLLECTIONS | jq '{id, name}' | jq -s '.' | jq -r '.[${c_index}] | \"\(.id)\\t\(.name)\"'")  
               #echo "CODE: $code"
               c=$(eval "$code")
               #echo "Collection: $c"
-              c_id=$(echo ${c} | awk -F'\t' '{print $1}')
-              c_name=$(echo ${c} | awk -F'\t' '{print $2}')
+              id=$(echo $c | cut -d' ' -f1)
+              name=$(echo $c | cut -d' ' -f2-)
+              #c_id=$(echo ${c} | awk -F'\t' '{print $1}')
+              #c_name=$(echo ${c} | awk -F'\t' '{print $2}')
               #echo "   -- ID:   ${c_id}"
               #echo "   -- Name: ${c_name}"
               cc_index=1
@@ -74,7 +78,7 @@ jobs:
                 code=$(echo "echo \${CURRENT_COLLECTIONS} | awk -F ';' '{ print $"${cc_index} "}'")
                 cc=$(eval "$code")
                 echo "  -- CUR_NAME: ${cc}"
-                if [ "$c_name" = "$cc" ]; then
+                if [ "$name" = "$cc" ]; then
                 	echo "COLLECTION FOUND!!! ${cc}"
                   #newman run https://api.getpostman.com/collections/$c_id?apikey=PMAK-60114e5616781300515026ea-3880a4a028557edf774fbb4d0a705088a0 --environment https://api.getpostman.com/environments/14096194-0aa36cea-54f6-4110-839c-8c6f34d21221?apikey=PMAK-60114e5616781300515026ea-3880a4a028557edf774fbb4d0a705088a0 
                 fi;                
