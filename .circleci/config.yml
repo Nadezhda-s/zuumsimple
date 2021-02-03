@@ -57,8 +57,8 @@ jobs:
                 cc=$(eval "$code")
                 if [ "$c_name" = "$cc" ]; then
               	  echo "COLLECTION FOUND!!! ${cc}"
-                  echo ">>> ID COLLECTION: $c_id"
-                  newman run https://api.getpostman.com/collections/$c_id?apikey=PMAK-60114e5616781300515026ea-3880a4a028557edf774fbb4d0a705088a0 --environment https://api.getpostman.com/environments/14096194-0aa36cea-54f6-4110-839c-8c6f34d21221?apikey=PMAK-60114e5616781300515026ea-3880a4a028557edf774fbb4d0a705088a0 
+                  #echo ">>> ID COLLECTION: $c_id"
+                  #newman run https://api.getpostman.com/collections/$c_id?apikey=PMAK-60114e5616781300515026ea-3880a4a028557edf774fbb4d0a705088a0 --environment https://api.getpostman.com/environments/14096194-0aa36cea-54f6-4110-839c-8c6f34d21221?apikey=PMAK-60114e5616781300515026ea-3880a4a028557edf774fbb4d0a705088a0 
                 fi;
                 cc_index=$(expr $cc_index + 1)
               done
