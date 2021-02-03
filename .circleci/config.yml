@@ -35,7 +35,7 @@ jobs:
             line=$(eval "$code")
             id=$(echo $line | cut -d' ' -f1)
             name=$(echo $line | cut -d' ' -f2-)
-            echo $line            
+            echo $code
             echo ">>>>>>>>>>>>>>>>>>>>>>>>> START"
             echo $id
             echo $name
