@@ -39,7 +39,7 @@ jobs:
             echo ">>>>>>>>>>>>>>>>>>>>>>>>>"
             echo $COLLECTIONS 
             #echo $COLLECTIONS | awk -F'\\\\;' '{if(NR==3) print "(" $1 ")"}'            
-            CURRENT_COLLECTIONS="Test CREATE Company:Trailer Test CONTACT DELETE:Demo"
+            CURRENT_COLLECTIONS="Test CREATE Company Trailer:Test CONTACT DELETE:Demo"
             CNT=$(echo ${COLLECTIONS} | awk -F '\\\;' 'END{print NR}')
             CURRENT_CNT=$(echo ${CURRENT_COLLECTIONS} | awk -F ':' '{print NF}')
             echo "Number of Postman collections: $CNT"
