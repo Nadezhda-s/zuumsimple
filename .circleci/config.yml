@@ -33,7 +33,7 @@ jobs:
             echo $COLLECTIONS '{printf "%s\n" "$COLLECTIONS"}' 
             echo $COLLECTIONS | awk -F'\\\\n' '{if(NR==3) print "(" $1 ")"}'            
             CURRENT_COLLECTIONS="Test CREATE Company Trailer;Test CONTACT DELETE;Demo"
-            CNT=$(echo ${COLLECTIONS} | awk -F '\\\\n' 'END{print NR}')
+            CNT=$(echo ${COLLECTIONS} | awk -F '\\\;' 'END{print NR}')
             CURRENT_CNT=$(echo ${CURRENT_COLLECTIONS} | awk -F ';' '{print NF}')
             echo "Number of Postman collections: $CNT"
             echo "Number of current collections: $CURRENT_CNT"
@@ -49,7 +49,7 @@ jobs:
             c_index=1
             echo "##################################"
             while [ $c_index -lt $(expr $CNT + 1) ]; do
-              code=$(echo "echo \${COLLECTIONS} | awk -F '$SEP' '{ if(NR==${c_index}) print \$1}'")
+              code=$(echo "echo \${COLLECTIONS} | awk -F ';' '{ if(NR==${c_index}) print \$1}'")
               #echo "CODE: $code"
               c=$(eval "$code")
               #echo "Collection: $c"
@@ -63,12 +63,10 @@ jobs:
                 cc=$(eval "$code")
                 if [ "$c_name" = "$cc" ]; then
                 	echo "COLLECTION FOUND!!! ${cc}"
-                fi;
-                echo "END IF !!!"
+                fi;                
                 cc_index=$(expr $cc_index + 1)
               done
-              c_index=$(expr $c_index + 1)
-              echo "TESTE88"
+              c_index=$(expr $c_index + 1)              
             done;
 
       #- newman/newman-run:
