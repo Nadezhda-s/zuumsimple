@@ -46,9 +46,9 @@ jobs:
             echo "##################################"
             while [ $c_index -lt $(expr $CNT + 1) ]; do
               code=$(echo "echo \${COLLECTIONS} | awk -F '$SEP' '{ if(NR==${c_index}) print \$1}'")
-              #echo "CODE: $code"
+              echo "CODE: $code"
               c=$(eval "$code")
-              #echo "Collection: $c"
+              echo "Collection: $c"
               c_id=$(echo ${c} | awk -F'\t' '{print $1}')
               c_name=$(echo ${c} | awk -F'\t' '{print $2}')
               #echo "   -- ID:   ${c_id}"
