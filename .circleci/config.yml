@@ -31,19 +31,19 @@ jobs:
             CURRENT_COLLECTIONS="Test CREATE Company Trailer;Test CONTACT DELETE;Demo"
             CNT=$(echo ${COLLECTIONS} | awk -F '\\\\n' 'END{print NR}')
             CURRENT_CNT=$(echo ${CURRENT_COLLECTIONS} | awk -F ';' '{print NF}')
-            echo "Number of Postman collections: $CNT"
-            echo "Number of current collections: $CURRENT_CNT"
-            echo "Current collections: "
+            #echo "Number of Postman collections: $CNT"
+            #echo "Number of current collections: $CURRENT_CNT"
+            #echo "Current collections: "
             cc_index=1
             while [ $cc_index -lt $(expr $CURRENT_CNT + 1) ]; do
               code=$(echo "echo \${CURRENT_COLLECTIONS} | awk -F ';' '{ print $"${cc_index} "}'")
               cc=$(eval "$code")
-              echo "Current collection: " ${cc}
+              #echo "Current collection: " ${cc}
               cc_index=$(expr $cc_index + 1)
             done
             SEP="\\\\\\\\\\\\\\\\n"
             c_index=1
-            echo "##################################"
+            #echo "##################################"
             while [ $c_index -lt $(expr $CNT + 1) ]; do
             	code=$(echo "echo \${COLLECTIONS} | awk -F '$SEP' '{ if(NR==${c_index}) print \$1}'")
               #echo "CODE: $code"
@@ -56,7 +56,7 @@ jobs:
                 code=$(echo "echo \${CURRENT_COLLECTIONS} | awk -F ';' '{ print $"${cc_index} "}'")
                 cc=$(eval "$code")
                 if [ "$c_name" = "$cc" ]; then
-              	  echo "COLLECTION FOUND!!! ${cc}"
+              	  #cho "COLLECTION FOUND!!! ${cc}"
                   echo ">>> ID COLLECTION: $c_id"
                   newman run https://api.getpostman.com/collections/$c_id?apikey=PMAK-60114e5616781300515026ea-3880a4a028557edf774fbb4d0a705088a0 --environment https://api.getpostman.com/environments/14096194-0aa36cea-54f6-4110-839c-8c6f34d21221?apikey=PMAK-60114e5616781300515026ea-3880a4a028557edf774fbb4d0a705088a0 
                 fi;
