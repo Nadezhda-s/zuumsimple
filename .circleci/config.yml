@@ -35,12 +35,8 @@ jobs:
             code=$(echo "echo \$COLLECTIONS | jq '{id, name}' | jq -s '.' | jq -r '.[${c_line}] | \"\(.id)\\t\(.name)\"'")                      
             line=$(eval "$code")
             id=$(echo $line | cut -d' ' -f1)
-            name=$(echo $line | cut -d' ' -f2-)            
-            echo ">>>>>>>>>>>>>>>>>>>>>>>>> START"
-            echo $id
-            echo $name
-            echo ">>>>>>>>>>>>>>>>>>>>>>>>> END"
-            #cho $COLLECTIONS 
+            name=$(echo $line | cut -d' ' -f2-) 
+            #echo $COLLECTIONS 
             #echo $COLLECTIONS | awk -F'\\\\n' '{if(NR==3) print "(" $1 ")"}'            
             CURRENT_COLLECTIONS="Test CREATE Company Trailer;Test CONTACT DELETE;Demo"
             #CNT=$(echo ${COLLECTIONS} | awk -F ' ' 'END{print NR}')
@@ -77,7 +73,7 @@ jobs:
                 echo "  -- CUR_NAME: ${cc}"
                 if [ "$name" = "$cc" ]; then
                 	echo "COLLECTION FOUND!!! ${cc}"
-                  #newman run https://api.getpostman.com/collections/$c_id?apikey=PMAK-60114e5616781300515026ea-3880a4a028557edf774fbb4d0a705088a0 --environment https://api.getpostman.com/environments/14096194-0aa36cea-54f6-4110-839c-8c6f34d21221?apikey=PMAK-60114e5616781300515026ea-3880a4a028557edf774fbb4d0a705088a0 
+                  newman run https://api.getpostman.com/collections/$id?apikey=PMAK-60114e5616781300515026ea-3880a4a028557edf774fbb4d0a705088a0 --environment https://api.getpostman.com/environments/14096194-0aa36cea-54f6-4110-839c-8c6f34d21221?apikey=PMAK-60114e5616781300515026ea-3880a4a028557edf774fbb4d0a705088a0 
                 fi;                
                 cc_index=$(expr $cc_index + 1)
               done
