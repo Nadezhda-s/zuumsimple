@@ -31,27 +31,28 @@ jobs:
             #printf "%s\n" "$COLLECTIONS"
             c_line=3
             COLLECTIONS=$(eval `echo "curl --silent --location --request GET \"https://api.getpostman.com/workspaces/ae97ca88-e6f4-45f0-a52b-b98b062147d6\" --header \"X-API-Key: PMAK-60114e5616781300515026ea-3880a4a028557edf774fbb4d0a705088a0\"| jq -r '.workspace.collections[]'"`)
+                        
             code=$(echo "echo \$COLLECTIONS | jq '{id, name}' | jq -s '.' | jq -r '.[${c_line}] | \"\(.id)\\t\(.name)\"'")
             line=$(eval "$code")
             id=$(echo $line | cut -d' ' -f1)
             name=$(echo $line | cut -d' ' -f2-)
-            echo $code
+            echo $line            
             echo ">>>>>>>>>>>>>>>>>>>>>>>>> START"
             echo $id
             echo $name
             echo ">>>>>>>>>>>>>>>>>>>>>>>>> END"
 
-            #echo $COLLECTIONS 
-            #echo $COLLECTIONS | awk -F'\\\\;' '{if(NR==3) print "(" $1 ")"}'            
-            CURRENT_COLLECTIONS="Test CREATE Company Trailer:Test CONTACT DELETE:Demo"
+            echo $COLLECTIONS 
+            echo $COLLECTIONS | awk -F'\\\\n' '{if(NR==3) print "(" $1 ")"}'            
+            CURRENT_COLLECTIONS="Test CREATE Company Trailer;Test CONTACT DELETE;Demo"
             CNT=$(echo ${COLLECTIONS} | awk -F '\\\;' 'END{print NR}')
-            CURRENT_CNT=$(echo ${CURRENT_COLLECTIONS} | awk -F ':' '{print NF}')
+            CURRENT_CNT=$(echo ${CURRENT_COLLECTIONS} | awk -F ';' '{print NF}')
             echo "Number of Postman collections: $CNT"
             echo "Number of current collections: $CURRENT_CNT"
             echo "Current collections: "
             cc_index=1
             while [ $cc_index -lt $(expr $CURRENT_CNT + 1) ]; do
-            	code=$(echo "echo \${CURRENT_COLLECTIONS} | awk -F ':' '{ print $"${cc_index} "}'")
+            	code=$(echo "echo \${CURRENT_COLLECTIONS} | awk -F ';' '{ print $"${cc_index} "}'")
               cc=$(eval "$code")
               #echo "Current collection: " ${cc}
               cc_index=$(expr $cc_index + 1)
@@ -60,7 +61,7 @@ jobs:
             c_index=1
             echo "##################################"
             while [ $c_index -lt $(expr $CNT + 1) ]; do
-              code=$(echo "echo \${COLLECTIONS} | awk -F ';' '{ if(NR==${c_index}) print \$1}'")
+              code=$(echo "echo \${COLLECTIONS} | awk -F '$SEP' '{ if(NR==${c_index}) print \$1}'")
               #echo "CODE: $code"
               c=$(eval "$code")
               #echo "Collection: $c"
@@ -70,7 +71,7 @@ jobs:
               #echo "   -- Name: ${c_name}"
               cc_index=1
               while [ $cc_index -lt $(expr $CURRENT_CNT + 1) ]; do
-                code=$(echo "echo \${CURRENT_COLLECTIONS} | awk -F ':' '{ print $"${cc_index} "}'")
+                code=$(echo "echo \${CURRENT_COLLECTIONS} | awk -F ';' '{ print $"${cc_index} "}'")
                 cc=$(eval "$code")
                 echo "  -- CUR_NAME: ${cc}"
                 if [ "$c_name" = "$cc" ]; then
