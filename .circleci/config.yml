@@ -33,7 +33,7 @@ jobs:
             code=$(echo "echo \$COLLECTIONS | jq '{id, name}' | jq -s '.' | jq -r '.[${c_line}] | \"\(.id)\\t\(.name)\"'")
             line=$(eval "$code")
             id=$(echo $line | cut -d' ' -f1)
-            name=$(echo $line | cut -d' ' -f2-)            
+            name=$(echo $line | cut -d' ' -f2)            
             echo ">>>>>>>>>>>>>>>>>>>>>>>>> START"
             echo $id
             echo $name
