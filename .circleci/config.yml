@@ -49,7 +49,7 @@ jobs:
             while [ $cc_index -lt $(expr $CURRENT_CNT + 1) ]; do
             	code=$(echo "echo \${CURRENT_COLLECTIONS} | awk -F ':' '{ print $"${cc_index} "}'")
               cc=$(eval "$code")
-              echo "Current collection: " ${cc}
+              #echo "Current collection: " ${cc}
               cc_index=$(expr $cc_index + 1)
             done            
             SEP="\\\\\\\\\\\\\\\\n"
@@ -63,7 +63,7 @@ jobs:
               c_id=$(echo ${c} | awk -F'\t' '{print $1}')
               c_name=$(echo ${c} | awk -F'\t' '{print $2}')
               #echo "   -- ID:   ${c_id}"
-              echo "   -- Name: ${c_name}"
+              #echo "   -- Name: ${c_name}"
               cc_index=1
               while [ $cc_index -lt $(expr $CURRENT_CNT + 1) ]; do
                 code=$(echo "echo \${CURRENT_COLLECTIONS} | awk -F ':' '{ print $"${cc_index} "}'")
@@ -71,6 +71,7 @@ jobs:
                 echo "  -- CUR_NAME: ${cc}"
                 if [ "$c_name" = "$cc" ]; then
                 	echo "COLLECTION FOUND!!! ${cc}"
+                  newman run https://api.getpostman.com/collections/$c_id?apikey=PMAK-60114e5616781300515026ea-3880a4a028557edf774fbb4d0a705088a0 --environment https://api.getpostman.com/environments/14096194-0aa36cea-54f6-4110-839c-8c6f34d21221?apikey=PMAK-60114e5616781300515026ea-3880a4a028557edf774fbb4d0a705088a0 
                 fi;                
                 cc_index=$(expr $cc_index + 1)
               done
