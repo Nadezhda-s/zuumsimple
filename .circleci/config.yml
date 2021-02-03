@@ -27,15 +27,15 @@ jobs:
             printf "SRART code\n"
             #CURRENT_COLLECTIONS="\"Test CREATE Company Trailer\" \"Test CONTACT DELETE\"" 
             #IFS=$'\n' COLLECTIONS=$(curl --silent --location --request GET "https://api.getpostman.com/workspaces/ae97ca88-e6f4-45f0-a52b-b98b062147d6" --header "X-API-Key: PMAK-60114e5616781300515026ea-3880a4a028557edf774fbb4d0a705088a0"| jq -r '.workspace.collections[] | "\(.id)\t\(.name)"')
-            IFS=$';' COLLECTIONS=$(curl --silent --location --request GET "https://api.getpostman.com/workspaces/ae97ca88-e6f4-45f0-a52b-b98b062147d6" --header "X-API-Key: PMAK-60114e5616781300515026ea-3880a4a028557edf774fbb4d0a705088a0"| jq -r '.workspace.collections[] | "\(.id)\t\(.name)"')
+            #IFS=$';' COLLECTIONS=$(curl --silent --location --request GET "https://api.getpostman.com/workspaces/ae97ca88-e6f4-45f0-a52b-b98b062147d6" --header "X-API-Key: PMAK-60114e5616781300515026ea-3880a4a028557edf774fbb4d0a705088a0"| jq -r '.workspace.collections[] | "\(.id)\t\(.name)"')
             #printf "%s\n" "$COLLECTIONS"
-            #COLLECTIONS=$(curl --silent --location --request GET "https://api.getpostman.com/workspaces/ae97ca88-e6f4-45f0-a52b-b98b062147d6" --header "X-API-Key: PMAK-60114e5616781300515026ea-3880a4a028557edf774fbb4d0a705088a0"| jq -r '.workspace.collections[] | {id, name}')
-            #COLLECTIONS=$(echo $COLLECTIONS|sed 's/[{:"]//g'|sed 's/ [}]/\n/g'|sed 's/  id //g'|sed 's/, name /\t/g'|sed 's/ id //g')
-            #COLLECTIONS=$(curl --silent --location --request GET "https://api.getpostman.com/workspaces/ae97ca88-e6f4-45f0-a52b-b98b062147d6" --header "X-API-Key: PMAK-60114e5616781300515026ea-3880a4a028557edf774fbb4d0a705088a0"| jq -r '.workspace.collections[] | {id, name}')
-            #c_index=3
-            #code=$(echo "echo \$COLLECTIONS|sed 's/[{:\"]//g'|sed 's/ [}]/\\\\n/g'|sed 's/  name //g'|sed 's/, id /\\t/g' | sed 's/ name //g'| awk -F '\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\n' '{ if(NR == ${c_index}) print \$1}'")
-            #line=$(eval "$code")
-            #echo $line
+            COLLECTIONS=$(eval `echo "curl --silent --location --request GET \"https://api.getpostman.com/workspaces/ae97ca88-e6f4-45f0-a52b-b98b062147d6\" --header \"X-API-Key: PMAK-60114e5616781300515026ea-3880a4a028557edf774fbb4d0a705088a0\"| jq -r '.workspace.collections[]'"`)
+            code=$(echo "echo \$COLLECTIONS | jq '{id, name}' | jq -s '.' | jq -r '.[${c_line}] | \"\(.id)\\t\(.name)\"'")
+            line=$(eval "$code")
+            id=$(echo $line | cut -d' ' -f1)
+            name=$(echo $line | cut -d' ' -f2-)            
+            echo $id
+            echo $name
             echo ">>>>>>>>>>>>>>>>>>>>>>>>>"
             echo $COLLECTIONS 
             #echo $COLLECTIONS | awk -F'\\\\;' '{if(NR==3) print "(" $1 ")"}'            
@@ -71,7 +71,7 @@ jobs:
                 echo "  -- CUR_NAME: ${cc}"
                 if [ "$c_name" = "$cc" ]; then
                 	echo "COLLECTION FOUND!!! ${cc}"
-                  newman run https://api.getpostman.com/collections/$c_id?apikey=PMAK-60114e5616781300515026ea-3880a4a028557edf774fbb4d0a705088a0 --environment https://api.getpostman.com/environments/14096194-0aa36cea-54f6-4110-839c-8c6f34d21221?apikey=PMAK-60114e5616781300515026ea-3880a4a028557edf774fbb4d0a705088a0 
+                  #newman run https://api.getpostman.com/collections/$c_id?apikey=PMAK-60114e5616781300515026ea-3880a4a028557edf774fbb4d0a705088a0 --environment https://api.getpostman.com/environments/14096194-0aa36cea-54f6-4110-839c-8c6f34d21221?apikey=PMAK-60114e5616781300515026ea-3880a4a028557edf774fbb4d0a705088a0 
                 fi;                
                 cc_index=$(expr $cc_index + 1)
               done
