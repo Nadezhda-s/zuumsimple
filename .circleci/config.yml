@@ -46,13 +46,13 @@ jobs:
             echo "##################################"
             while [ $c_index -lt $(expr $CNT + 1) ]; do
               code=$(echo "echo \${COLLECTIONS} | awk -F '$SEP' '{ if(NR==${c_index}) print \$1}'")
-              echo "CODE: $code"
+              #echo "CODE: $code"
               c=$(eval "$code")
-              echo "Collection: $c"
+              #echo "Collection: $c"
               c_id=$(echo ${c} | awk -F'\t' '{print $1}')
               c_name=$(echo ${c} | awk -F'\t' '{print $2}')
-              #echo "   -- ID:   ${c_id}"
-              #echo "   -- Name: ${c_name}"
+              echo "   -- ID:   ${c_id}"
+              echo "   -- Name: ${c_name}"
               cc_index=1
               while [ $cc_index -lt $(expr $CURRENT_CNT + 1) ]; do
                 code=$(echo "echo \${CURRENT_COLLECTIONS} | awk -F ';' '{ print $"${cc_index} "}'")
@@ -60,9 +60,11 @@ jobs:
                 if [ "$c_name" = "$cc" ]; then
                 	echo "COLLECTION FOUND!!! ${cc}"
                 fi;
+                echo "END IF !!!"
                 cc_index=$(expr $cc_index + 1)
               done
               c_index=$(expr $c_index + 1)
+              echo "TESTE88"
             done;
 
        #- newman/newman-run:
