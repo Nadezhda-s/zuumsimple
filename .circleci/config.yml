@@ -19,7 +19,7 @@ jobs:
       - run:          
           name: Validate terraform code
           command: |
-            apk add --update curl curl-dev jq  |  
+            apk add --update curl curl-dev jq  |
             #npm i newman |
             #for i in <<parameters.envs>>; do
               #newman run https://api.getpostman.com/collections/$i?apikey=PMAK-60114e5616781300515026ea-3880a4a028557edf774fbb4d0a705088a0 --environment https://api.getpostman.com/environments/14096194-0aa36cea-54f6-4110-839c-8c6f34d21221?apikey=PMAK-60114e5616781300515026ea-3880a4a028557edf774fbb4d0a705088a0 
