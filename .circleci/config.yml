@@ -31,8 +31,8 @@ jobs:
             #printf "%s\n" "$COLLECTIONS"
             COLLECTIONS=$(curl --silent --location --request GET "https://api.getpostman.com/workspaces/ae97ca88-e6f4-45f0-a52b-b98b062147d6" --header "X-API-Key: PMAK-60114e5616781300515026ea-3880a4a028557edf774fbb4d0a705088a0"| jq -r '.workspace.collections[] | {id, name}')
             #COLLECTIONS=$(echo $COLLECTIONS|sed 's/[{:"]//g'|sed 's/ [}]/\n/g'|sed 's/  id //g'|sed 's/, name /\t/g'|sed 's/ id //g')
-            $code=$(echo "echo \$COLLECTIONS|sed 's/[{:\"]//g'|sed 's/ [}]/\\\\n/g'|sed 's/  name //g'|sed 's/, id /\\t/g' | sed 's/ name//g'| awk -F '\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\n' '{ if(NR == 3) print \$1}'")
-            $eval $code
+            code=$(echo "echo \$COLLECTIONS|sed 's/[{:\"]//g'|sed 's/ [}]/\\\\n/g'|sed 's/  name //g'|sed 's/, id /\\t/g' | sed 's/ name//g'| awk -F '\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\n' '{ if(NR == 3) print \$1}'")
+            eval $code
             echo ">>>>>>>>>>>>>>>>>>>>>>>>>"
             echo $COLLECTIONS 
             echo $COLLECTIONS | awk -F'\\\\n' '{if(NR==3) print "(" $1 ")"}'            
