@@ -33,11 +33,13 @@ jobs:
             code=$(echo "echo \$COLLECTIONS | jq '{id, name}' | jq -s '.' | jq -r '.[${c_line}] | \"\(.id)\\t\(.name)\"'")
             line=$(eval "$code")
             id=$(echo $line | cut -d' ' -f1)
-            name=$(echo $line | cut -d' ' -f2)            
+            name=$(echo $line | cut -d' ' -f2-)
+            echo $line            
             echo ">>>>>>>>>>>>>>>>>>>>>>>>> START"
             echo $id
             echo $name
             echo ">>>>>>>>>>>>>>>>>>>>>>>>> END"
+
             #echo $COLLECTIONS 
             #echo $COLLECTIONS | awk -F'\\\\;' '{if(NR==3) print "(" $1 ")"}'            
             CURRENT_COLLECTIONS="Test CREATE Company Trailer:Test CONTACT DELETE:Demo"
