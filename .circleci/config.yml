@@ -34,10 +34,11 @@ jobs:
             line=$(eval "$code")
             id=$(echo $line | cut -d' ' -f1)
             name=$(echo $line | cut -d' ' -f2-)            
+            echo ">>>>>>>>>>>>>>>>>>>>>>>>> START"
             echo $id
             echo $name
-            echo ">>>>>>>>>>>>>>>>>>>>>>>>>"
-            echo $COLLECTIONS 
+            echo ">>>>>>>>>>>>>>>>>>>>>>>>> END"
+            #echo $COLLECTIONS 
             #echo $COLLECTIONS | awk -F'\\\\;' '{if(NR==3) print "(" $1 ")"}'            
             CURRENT_COLLECTIONS="Test CREATE Company Trailer:Test CONTACT DELETE:Demo"
             CNT=$(echo ${COLLECTIONS} | awk -F '\\\;' 'END{print NR}')
