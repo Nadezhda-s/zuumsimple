@@ -47,7 +47,7 @@ jobs:
             echo "Current collections: "
             cc_index=1
             while [ $cc_index -lt $(expr $CURRENT_CNT + 1) ]; do
-            	code=$(echo "echo \${CURRENT_COLLECTIONS} | awk -F ';' '{ print $"${cc_index} "}'")
+            	code=$(echo "echo \${CURRENT_COLLECTIONS} | awk -F ':' '{ print $"${cc_index} "}'")
               cc=$(eval "$code")
               echo "Current collection: " ${cc}
               cc_index=$(expr $cc_index + 1)
@@ -66,7 +66,7 @@ jobs:
               echo "   -- Name: ${c_name}"
               cc_index=1
               while [ $cc_index -lt $(expr $CURRENT_CNT + 1) ]; do
-                code=$(echo "echo \${CURRENT_COLLECTIONS} | awk -F ';' '{ print $"${cc_index} "}'")
+                code=$(echo "echo \${CURRENT_COLLECTIONS} | awk -F ':' '{ print $"${cc_index} "}'")
                 cc=$(eval "$code")
                 echo "  -- CUR_NAME: ${cc}"
                 if [ "$c_name" = "$cc" ]; then
