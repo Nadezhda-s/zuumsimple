@@ -25,6 +25,9 @@ jobs:
             printf "SRART code\n"            
             c_line=1
             COLLECTIONS=$(eval `echo "curl --silent --location --request GET \"https://api.getpostman.com/workspaces/$WORKSPACE\" --header \"X-API-Key: $API_KEY\"| jq -r '.workspace.collections[]'"`)
+            ENVS=$(eval `echo "curl --silent --location --request GET \"https://api.getpostman.com/workspaces/$WORKSPACE\" --header \"X-API-Key: $API_KEY\"| jq -r '.workspace.environments[]'"`)
+            echo ">>>>>>>>>>>>>>>>>>>>>>ENVS:"
+            echo $ENVS
             CNT=$(echo $COLLECTIONS | jq -s '.' | jq length)
             echo $CURRENT_COLLECTIONS
             CURRENT_CNT=$(echo ${CURRENT_COLLECTIONS} | awk -F ';' '{print NF}')
