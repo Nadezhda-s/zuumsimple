@@ -68,13 +68,14 @@ jobs:
                 #echo "  -- CUR_NAME: ${cc}"
                 if [ "$name" = "$cc" ]; then                	
                   #newman run https://api.getpostman.com/collections/$id?apikey=$API_KEY --environment https://api.getpostman.com/environments/$env_test?apikey=$API_KEY
-                  echo "TETS TEST" > /tmp/artifacts-tests;
+                  #echo "TETS TEST" > /tmp/artifacts-tests;
                   answer=$(echo "newman run https://api.getpostman.com/collections/$id?apikey=$API_KEY --environment https://api.getpostman.com/environments/$env_test?apikey=$API_KEY")
                   a=$(eval "$answer")
+
                   echo "$a"
                   echo "$a" > /tmp/artifacts-tests;                  
                   echo "my artifact file" > /tmp/artifacts-tests;  
-                  #echo "COLLECTION FOUND!!! ${cc}"
+                  echo "COLLECTION FOUND!!! ${cc}"
                 fi;                
                 cc_index=$(expr $cc_index + 1)
               done
@@ -85,6 +86,9 @@ jobs:
           #collection: https://api.getpostman.com/collections/14096194-232d230d-7d84-4e62-840e-276098f18a42?apikey=PMAK-60114e5616781300515026ea-3880a4a028557edf774fbb4d0a705088a0 --environment https://api.getpostman.com/environments/14096194-0aa36cea-54f6-4110-839c-8c6f34d21221?apikey=PMAK-60114e5616781300515026ea-3880a4a028557edf774fbb4d0a705088a0      
       - store_artifacts:
           path: /tmp/artifacts-tests
+      - store_test_results:
+          path: /tmp/test-results/
+          destination: test    
 
 # Orchestrate or schedule a set of jobs
 workflows:
