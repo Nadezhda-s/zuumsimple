@@ -34,14 +34,14 @@ jobs:
             echo $CURRENT_COLLECTIONS
             ce_index=0
             while [ $ce_index -lt $(expr $E_CNT) ]; do              
-              ecode=$(echo "echo \$ENVS | jq '{id, name}' | jq -s '.' | jq -r '.[${ce_index}] | \"\(.uid)\\t\(.name)\"'")                
+              ecode=$(echo "echo \$ENVS | jq '{id, name}' | jq -s '.' | jq -r '.[${ce_index}] | \"\(.id)\\t\(.name)\"'")                
               ec=$(eval "$ecode")
               echo "Collection: $ec"
               eid=$(echo $ec | cut -d' ' -f1)
               ename=$(echo $ec | cut -d' ' -f2-)
               if [ "$ename" = "$ENVIRONMENT" ]; then
                 echo "ENV TRUE!!!+++++++++++++++"
-                env_test=$ename
+                env_test=$eid
               fi;
               echo "ID ENV: $eid"
               echo "NAME ENV: $ename"
