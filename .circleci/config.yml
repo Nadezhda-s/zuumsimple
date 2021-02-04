@@ -41,7 +41,7 @@ jobs:
               ename=$(echo $ec | cut -d' ' -f2-)
               if [ "$ename" = "$ENVIRONMENT" ]; then
                 echo "ENV TRUE!!!+++++++++++++++"
-                env_test = $ename
+                env_test=$ename
               fi;
               echo "ID ENV: $eid"
               echo "NAME ENV: $ename"
