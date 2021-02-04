@@ -39,7 +39,7 @@ jobs:
               echo "Collection: $ec"
               eid=$(echo $ec | cut -d' ' -f1)
               ename=$(echo $ec | cut -d' ' -f2-)
-              if [ "$ename" = "EENVIRONMENT" ]; then
+              if [ "$ename" = "$EENVIRONMENT" ]; then
                 echo "ENV TRUE!!!+++++++++++++++"
               fi;
               echo "ID ENV: $eid"
