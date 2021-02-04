@@ -41,7 +41,9 @@ jobs:
               ename=$(echo $ec | cut -d' ' -f2-)
               echo "ID ENV: $eid"
               echo "NAME ENV: $ename"
-            done  
+              ce_index=$(expr $ce_index + 1) 
+            done;
+
             CURRENT_CNT=$(echo ${CURRENT_COLLECTIONS} | awk -F ';' '{print NF}')
             echo "Number of Postman collections: $CNT"
             echo "Number of current collections: $CURRENT_CNT"
