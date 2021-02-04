@@ -36,7 +36,7 @@ jobs:
             while [ $ce_index -lt $(expr $E_CNT) ]; do              
               ecode=$(echo "echo \$ENVS | jq '{id, name}' | jq -s '.' | jq -r '.[${ce_index}] | \"\(.uid)\\t\(.name)\"'")                
               ec=$(eval "$ecode")
-              #echo "Collection: $ec"
+              echo "Collection: $ec"
               eid=$(echo $ec | cut -d' ' -f1)
               ename=$(echo $ec | cut -d' ' -f2-)
               if [ "$ename" = "$ENVIRONMENT" ]; then
@@ -68,7 +68,8 @@ jobs:
                 cc=$(eval "$code")
                 #echo "  -- CUR_NAME: ${cc}"
                 if [ "$name" = "$cc" ]; then                	
-                  answer = newman run https://api.getpostman.com/collections/$id?apikey=$API_KEY --environment https://api.getpostman.com/environments/$env_test?apikey=$API_KEY 
+                  answer=$(echo "echo newman run https://api.getpostman.com/collections/$id?apikey=$API_KEY --environment https://api.getpostman.com/environments/$env_test?apikey=$API_KEY)
+                  echo $(eval "$answer")
                   #echo "COLLECTION FOUND!!! ${cc}"
                 fi;                
                 cc_index=$(expr $cc_index + 1)
