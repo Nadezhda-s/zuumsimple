@@ -22,7 +22,7 @@ jobs:
             apk add --update jq curl curl-dev |
             npm i newman |     
             #echo "my artifact file" > /tmp/artifacts-tests;       
-            #mkdir /tmp/artifacts-tests;  
+            mkdir /tmp/artifacts-tests;  
             #echo "my artifact files in a dir" > /tmp/artifacts-tests;
             printf "SRART code\n"            
             c_line=1
@@ -68,10 +68,11 @@ jobs:
                 #echo "  -- CUR_NAME: ${cc}"
                 if [ "$name" = "$cc" ]; then                	
                   #newman run https://api.getpostman.com/collections/$id?apikey=$API_KEY --environment https://api.getpostman.com/environments/$env_test?apikey=$API_KEY
-                  answer=$("newman run https://api.getpostman.com/collections/$id?apikey=$API_KEY --environment https://api.getpostman.com/environments/$env_test?apikey=$API_KEY")
+                  answer="newman run https://api.getpostman.com/collections/$id?apikey=$API_KEY --environment https://api.getpostman.com/environments/$env_test?apikey=$API_KEY"
                   a=$(eval "$answer")
-                  echo "$a" > /tmp/artifacts-test;
-                  echo "TETS TEST " > /tmp/artifacts-test;
+                  echo "$a" > /tmp/artifacts-tests;
+                  echo "TETS TEST" > /tmp/artifacts-tests;
+                  echo "my artifact file" > /tmp/artifacts-tests;  
                   #echo "COLLECTION FOUND!!! ${cc}"
                 fi;                
                 cc_index=$(expr $cc_index + 1)
