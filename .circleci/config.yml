@@ -30,13 +30,7 @@ jobs:
             CURRENT_CNT=$(echo ${CURRENT_COLLECTIONS} | awk -F ';' '{print NF}')
             echo "Number of Postman collections: $CNT"
             echo "Number of current collections: $CURRENT_CNT"
-            echo "Current collections: "
-            #cc_index=1
-            #while [ $cc_index -lt $(expr $CURRENT_CNT + 1) ]; do
-            	#code=$(echo "echo \${CURRENT_COLLECTIONS} | awk -F ';' '{ print $"${cc_index} "}'")
-              #cc=$(eval "$code")
-              #cc_index=$(expr $cc_index + 1)
-            #done            
+            echo "Current collections: "          
             c_index=0
             echo "##################################"
             while [ $c_index -lt $(expr $CNT + 1) ]; do              
@@ -53,7 +47,7 @@ jobs:
                 cc=$(eval "$code")
                 #echo "  -- CUR_NAME: ${cc}"
                 if [ "$name" = "$cc" ]; then                	
-                  newman run https://api.getpostman.com/collections/$id?apikey=PMAK-60114e5616781300515026ea-3880a4a028557edf774fbb4d0a705088a0 --environment https://api.getpostman.com/environments/14096194-0aa36cea-54f6-4110-839c-8c6f34d21221?apikey=PMAK-60114e5616781300515026ea-3880a4a028557edf774fbb4d0a705088a0 
+                  newman run https://api.getpostman.com/collections/$id?apikey=$API_KEY --environment https://api.getpostman.com/environments/14096194-0aa36cea-54f6-4110-839c-8c6f34d21221?apikey=$API_KEY 
                   #echo "COLLECTION FOUND!!! ${cc}"
                 fi;                
                 cc_index=$(expr $cc_index + 1)
