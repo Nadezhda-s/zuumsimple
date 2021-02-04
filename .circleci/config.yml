@@ -28,7 +28,7 @@ jobs:
             ENVS=$(eval `echo "curl --silent --location --request GET \"https://api.getpostman.com/workspaces/$WORKSPACE\" --header \"X-API-Key: $API_KEY\"| jq -r '.workspace.environments[]'"`)
             echo ">>>>>>>>>>>>>>>>>>>>>>ENVS:"
             echo $ENVS
-            echo $EENVIRONMENT
+            echo $ENVIRONMENT
             E_CNT=$(echo $ENVS | jq -s '.' | jq length)
             echo $E_CNT
             CNT=$(echo $COLLECTIONS | jq -s '.' | jq length)
@@ -40,7 +40,7 @@ jobs:
               #echo "Collection: $ec"
               eid=$(echo $ec | cut -d' ' -f1)
               ename=$(echo $ec | cut -d' ' -f2-)
-              if [ "$ename" = "$EENVIRONMENT" ]; then
+              if [ "$ename" = "$ENVIRONMENT" ]; then
                 echo "ENV TRUE!!!+++++++++++++++"
               fi;
               #echo "ID ENV: $eid"
