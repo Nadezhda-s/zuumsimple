@@ -22,7 +22,7 @@ jobs:
             apk add --update jq curl curl-dev |
             npm i newman |     
             #echo "my artifact file" > /tmp/artifacts-tests;       
-            mkdir /tmp/artifacts-tests;  
+            #mkdir /tmp/artifacts-tests;  
             #echo "my artifact files in a dir" > /tmp/artifacts-tests;
             printf "SRART code\n"            
             c_line=1
