@@ -69,7 +69,8 @@ jobs:
                 #echo "  -- CUR_NAME: ${cc}"
                 if [ "$name" = "$cc" ]; then                	
                   answer=$(echo "echo newman run https://api.getpostman.com/collections/$id?apikey=$API_KEY --environment https://api.getpostman.com/environments/$env_test?apikey=$API_KEY)
-                  echo $(eval "$answer")
+                  a=$(eval "$answer")
+                  echo "$a" > /tmp/artifact-1;
                   #echo "COLLECTION FOUND!!! ${cc}"
                 fi;                
                 cc_index=$(expr $cc_index + 1)
