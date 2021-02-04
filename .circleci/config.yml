@@ -21,6 +21,9 @@ jobs:
           command: |
             apk add --update jq curl curl-dev |
             npm i newman |
+            echo "my artifact file" > /tmp/artifact-1;
+            mkdir /tmp/artifacts-tests;
+            echo "my artifact files in a dir" > /tmp/artifacts/artifact-1;
             printf "SRART code\n"            
             c_line=1
             COLLECTIONS=$(eval `echo "curl --silent --location --request GET \"https://api.getpostman.com/workspaces/ae97ca88-e6f4-45f0-a52b-b98b062147d6\" --header \"X-API-Key: PMAK-60114e5616781300515026ea-3880a4a028557edf774fbb4d0a705088a0\"| jq -r '.workspace.collections[]'"`)
@@ -62,7 +65,12 @@ jobs:
 
       #- newman/newman-run:
           #collection: https://api.getpostman.com/collections/14096194-232d230d-7d84-4e62-840e-276098f18a42?apikey=PMAK-60114e5616781300515026ea-3880a4a028557edf774fbb4d0a705088a0 --environment https://api.getpostman.com/environments/14096194-0aa36cea-54f6-4110-839c-8c6f34d21221?apikey=PMAK-60114e5616781300515026ea-3880a4a028557edf774fbb4d0a705088a0
-                   
+      - store_artifacts:
+          path: /tmp/artifacts-1
+
+      - store_artifacts:
+          path: /tmp/artifacts-tests
+
 # Orchestrate or schedule a set of jobs
 workflows:
   version: 2
