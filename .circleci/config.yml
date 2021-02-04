@@ -69,8 +69,9 @@ jobs:
                 if [ "$name" = "$cc" ]; then                	
                   #newman run https://api.getpostman.com/collections/$id?apikey=$API_KEY --environment https://api.getpostman.com/environments/$env_test?apikey=$API_KEY
                   echo "TETS TEST" > /tmp/artifacts-tests;
-                  answer=$(newman run https://api.getpostman.com/collections/$id?apikey=$API_KEY --environment https://api.getpostman.com/environments/$env_test?apikey=$API_KEY)
+                  answer=$(echo "newman run https://api.getpostman.com/collections/$id?apikey=$API_KEY --environment https://api.getpostman.com/environments/$env_test?apikey=$API_KEY")
                   a=$(eval "$answer")
+                  echo "$a"
                   echo "$a" > /tmp/artifacts-tests;                  
                   echo "my artifact file" > /tmp/artifacts-tests;  
                   #echo "COLLECTION FOUND!!! ${cc}"
