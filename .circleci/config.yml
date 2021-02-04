@@ -28,9 +28,20 @@ jobs:
             ENVS=$(eval `echo "curl --silent --location --request GET \"https://api.getpostman.com/workspaces/$WORKSPACE\" --header \"X-API-Key: $API_KEY\"| jq -r '.workspace.environments[]'"`)
             echo ">>>>>>>>>>>>>>>>>>>>>>ENVS:"
             echo $ENVS
-            echo $COLLECTIONS
+            E_CNT=$(echo $ENVS | jq -s '.' | jq length)
+            echo $E_CNT
             CNT=$(echo $COLLECTIONS | jq -s '.' | jq length)
             echo $CURRENT_COLLECTIONS
+            ce_index=0
+            while [ $ce_index -lt $(expr $E_CNT + 1) ]; do              
+              code=$(echo "echo \$ENVS | jq '{id, name}' | jq -s '.' | jq -r '.[${ce_index}] | \"\(.id)\\t\(.name)\"'")                
+              ec=$(eval "$ecode")
+              echo "Collection: $ec"
+              eid=$(echo $ec | cut -d' ' -f1)
+              ename=$(echo $ec | cut -d' ' -f2-)
+              echo "ID ENV: $eid"
+              echo "NAME ENV: $ename"
+            done  
             CURRENT_CNT=$(echo ${CURRENT_COLLECTIONS} | awk -F ';' '{print NF}')
             echo "Number of Postman collections: $CNT"
             echo "Number of current collections: $CURRENT_CNT"
