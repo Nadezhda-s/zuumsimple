@@ -32,7 +32,7 @@ jobs:
             echo $E_CNT
             CNT=$(echo $COLLECTIONS | jq -s '.' | jq length)
             echo $CURRENT_COLLECTIONS
-            ce_index=1
+            ce_index=0
             while [ $ce_index -lt $(expr $E_CNT + 1) ]; do              
               ecode=$(echo "echo \$ENVS | jq '{id, name}' | jq -s '.' | jq -r '.[${ce_index}] | \"\(.id)\\t\(.name)\"'")                
               ec=$(eval "$ecode")
