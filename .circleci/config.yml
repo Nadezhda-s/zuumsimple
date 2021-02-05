@@ -49,7 +49,8 @@ jobs:
             CURRENT_CNT=$(echo ${CURRENT_COLLECTIONS} | awk -F ';' '{print NF}')
             #echo "Number of Postman collections: $CNT"
             #echo "Number of current collections: $CURRENT_CNT"
-            #echo "Current collections: "          
+            #echo "Current collections: " 
+            echo "" > /tmp/artifacts-tests         
             c_index=0
             #echo "##################################"
             while [ $c_index -lt $(expr $CNT + 1) ]; do              
@@ -66,7 +67,7 @@ jobs:
                 cc=$(eval "$code")
                 #echo "  -- CUR_NAME: ${cc}"
                 if [ "$name" = "$cc" ]; then                	
-                  newman run https://api.getpostman.com/collections/$id?apikey=$API_KEY --environment https://api.getpostman.com/environments/$env_test?apikey=$API_KEY > /tmp/artifacts-tests
+                  newman run https://api.getpostman.com/collections/$id?apikey=$API_KEY --environment https://api.getpostman.com/environments/$env_test?apikey=$API_KEY >> /tmp/artifacts-tests
                   echo "Postman command exit code: " $?
                   #echo "TETS TEST" > /tmp/artifacts-tests;
                   #answer=$(echo "newman run https://api.getpostman.com/collections/$id?apikey=$API_KEY --environment https://api.getpostman.com/environments/$env_test?apikey=$API_KEY")
