@@ -22,18 +22,17 @@ jobs:
             apk add --update jq curl curl-dev |
             npm i newman |     
             #echo "my artifact file" > /tmp/artifacts-tests;       
-            mkdir -p /tmp/test-results/;  
+            #mkdir -p /tmp/test-results/;  
             #echo "my artifact files in a dir" > /tmp/artifacts-tests;
             printf "SRART code\n"            
             c_line=1
             COLLECTIONS=$(eval `echo "curl --silent --location --request GET \"https://api.getpostman.com/workspaces/$WORKSPACE\" --header \"X-API-Key: $API_KEY\"| jq -r '.workspace.collections[]'"`)
             ENVS=$(eval `echo "curl --silent --location --request GET \"https://api.getpostman.com/workspaces/$WORKSPACE\" --header \"X-API-Key: $API_KEY\"| jq -r '.workspace.environments[]'"`)
-            echo ">>>>>>>>>>>>>>>>>>>>>>ENVS:"
-            
+                       
             E_CNT=$(echo $ENVS | jq -s '.' | jq length)
-            echo $E_CNT
+            #echo $E_CNT
             CNT=$(echo $COLLECTIONS | jq -s '.' | jq length)
-            echo $CURRENT_COLLECTIONS
+            #echo $CURRENT_COLLECTIONS
             ce_index=0
             while [ $ce_index -lt $(expr $E_CNT) ]; do              
               ecode=$(echo "echo \$ENVS | jq '{id, name}' | jq -s '.' | jq -r '.[${ce_index}] | \"\(.id)\\t\(.name)\"'")                
@@ -41,18 +40,18 @@ jobs:
               eid=$(echo $ec | cut -d' ' -f1)
               ename=$(echo $ec | cut -d' ' -f2-)
               if [ "$ename" = "$ENVIRONMENT" ]; then
-                echo "ENV TRUE!!!+++++++++++++++"
+                #echo "ENV TRUE!!!+++++++++++++++"
                 env_test=$eid
               fi;              
               ce_index=$(expr $ce_index + 1) 
             done;
 
             CURRENT_CNT=$(echo ${CURRENT_COLLECTIONS} | awk -F ';' '{print NF}')
-            echo "Number of Postman collections: $CNT"
-            echo "Number of current collections: $CURRENT_CNT"
-            echo "Current collections: "          
+            #echo "Number of Postman collections: $CNT"
+            #echo "Number of current collections: $CURRENT_CNT"
+            #echo "Current collections: "          
             c_index=0
-            echo "##################################"
+            #echo "##################################"
             while [ $c_index -lt $(expr $CNT + 1) ]; do              
               code=$(echo "echo \$COLLECTIONS | jq '{id, name}' | jq -s '.' | jq -r '.[${c_index}] | \"\(.id)\\t\(.name)\"'")                
               c=$(eval "$code")
@@ -75,7 +74,7 @@ jobs:
                   #echo "$a"
                   #echo "$a" > /tmp/artifacts-tests;                  
                   #echo "my artifact file" > /tmp/artifacts-tests;  
-                  echo "COLLECTION FOUND!!! ${cc}"
+                  #echo "COLLECTION FOUND!!! ${cc}"
                 fi;                
                 cc_index=$(expr $cc_index + 1)
               done
