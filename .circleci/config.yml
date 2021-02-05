@@ -67,13 +67,13 @@ jobs:
                 cc=$(eval "$code")
                 #echo "  -- CUR_NAME: ${cc}"
                 if [ "$name" = "$cc" ]; then                	
-                  #newman run https://api.getpostman.com/collections/$id?apikey=$API_KEY --environment https://api.getpostman.com/environments/$env_test?apikey=$API_KEY
+                  newman run https://api.getpostman.com/collections/$id?apikey=$API_KEY --environment https://api.getpostman.com/environments/$env_test?apikey=$API_KEY
                   #echo "TETS TEST" > /tmp/artifacts-tests;
-                  answer=$(echo "newman run https://api.getpostman.com/collections/$id?apikey=$API_KEY --environment https://api.getpostman.com/environments/$env_test?apikey=$API_KEY")
-                  a=$(eval "$answer")
+                  #answer=$(echo "newman run https://api.getpostman.com/collections/$id?apikey=$API_KEY --environment https://api.getpostman.com/environments/$env_test?apikey=$API_KEY")
+                  #a=$(eval "$answer")
 
                   #echo "$a"
-                  echo "$a" > /tmp/artifacts-tests;                  
+                  #echo "$a" > /tmp/artifacts-tests;                  
                   #echo "my artifact file" > /tmp/artifacts-tests;  
                   echo "COLLECTION FOUND!!! ${cc}"
                 fi;                
