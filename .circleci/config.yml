@@ -66,7 +66,8 @@ jobs:
                 code=$(echo "echo \${CURRENT_COLLECTIONS} | awk -F ';' '{ print $"${cc_index} "}'")
                 cc=$(eval "$code")
                 #echo "  -- CUR_NAME: ${cc}"
-                if [ "$name" = "$cc" ]; then                	
+                if [ "$name" = "$cc" ]; then    
+                  echo "Running Postman collection: ${name}..."            	
                   newman run https://api.getpostman.com/collections/$id?apikey=$API_KEY --environment https://api.getpostman.com/environments/$env_test?apikey=$API_KEY >> /tmp/artifacts-tests
                   echo "Postman command exit code: " $?
                   #echo "TETS TEST" > /tmp/artifacts-tests;
