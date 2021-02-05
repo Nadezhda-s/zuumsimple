@@ -70,13 +70,6 @@ jobs:
                   echo "Running Postman collection: ${name}..."            	
                   newman run https://api.getpostman.com/collections/$id?apikey=$API_KEY --environment https://api.getpostman.com/environments/$env_test?apikey=$API_KEY >> /tmp/artifacts-tests
                   echo "Postman command exit code: " $?
-                  #echo "TETS TEST" > /tmp/artifacts-tests;
-                  #answer=$(echo "newman run https://api.getpostman.com/collections/$id?apikey=$API_KEY --environment https://api.getpostman.com/environments/$env_test?apikey=$API_KEY")
-                  #a=$(eval "$answer")
-
-                  #echo "$a"
-                  #echo "$a" > /tmp/artifacts-tests;                  
-                  #echo "my artifact file" > /tmp/artifacts-tests;  
                   #echo "COLLECTION FOUND!!! ${cc}"
                 fi;                
                 cc_index=$(expr $cc_index + 1)
