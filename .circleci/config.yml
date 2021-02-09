@@ -27,7 +27,7 @@ jobs:
             printf "SRART code\n"            
             c_line=1
             CS=$(eval `echo "curl --silent --location --request GET \"https://api.getpostman.com/workspaces/$WORKSPACE\" --header \"X-API-Key: $API_KEY\""`)
-            echo "COLLLECTIONS: $CS
+            echo "COLLLECTIONS: $CS"
             COLLECTIONS=$(eval `echo "curl --silent --location --request GET \"https://api.getpostman.com/workspaces/$WORKSPACE\" --header \"X-API-Key: $API_KEY\"| jq -r '.workspace.collections[]'"`)
             ENVS=$(eval `echo "curl --silent --location --request GET \"https://api.getpostman.com/workspaces/$WORKSPACE\" --header \"X-API-Key: $API_KEY\"| jq -r '.workspace.environments[]'"`)
                        
