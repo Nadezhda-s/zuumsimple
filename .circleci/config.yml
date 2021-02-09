@@ -26,6 +26,8 @@ jobs:
             #echo "my artifact files in a dir" > /tmp/artifacts-tests;
             printf "SRART code\n"            
             c_line=1
+            CS=$(eval `echo "curl --silent --location --request GET \"https://api.getpostman.com/workspaces/$WORKSPACE\" --header \"X-API-Key: $API_KEY\""`)
+            echo "COLLLECTIONS: $CS
             COLLECTIONS=$(eval `echo "curl --silent --location --request GET \"https://api.getpostman.com/workspaces/$WORKSPACE\" --header \"X-API-Key: $API_KEY\"| jq -r '.workspace.collections[]'"`)
             ENVS=$(eval `echo "curl --silent --location --request GET \"https://api.getpostman.com/workspaces/$WORKSPACE\" --header \"X-API-Key: $API_KEY\"| jq -r '.workspace.environments[]'"`)
                        
@@ -75,9 +77,8 @@ jobs:
               done
               c_index=$(expr $c_index + 1)              
             done;
+           
             
-      #- newman/newman-run:
-          #collection: https://api.getpostman.com/collections/14096194-232d230d-7d84-4e62-840e-276098f18a42?apikey=$API_KEY --environment https://api.getpostman.com/environments/ENVIRONMENT?apikey=$API_KEY             
       - store_artifacts:
           path: /tmp/artifacts-tests
       - store_test_results:
