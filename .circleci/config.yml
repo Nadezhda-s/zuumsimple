@@ -11,7 +11,7 @@ jobs:
     parameters:
       environms:
         description: project environments
-        default: "'14096194' '14096194'"
+        default: "'14096194-232d230d-7d84-4e62-840e-276098f18a42' '14096194-747dceb4-778a-4653-9566-22572ff9c169'"
         type: string
     executor: newman/postman-newman-docker
     steps:      
