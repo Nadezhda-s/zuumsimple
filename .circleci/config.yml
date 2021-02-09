@@ -39,8 +39,7 @@ jobs:
               ec=$(eval "$ecode")              
               eid=$(echo $ec | cut -d' ' -f1)
               ename=$(echo $ec | cut -d' ' -f2-)
-              if [ "$ename" = "$ENVIRONMENT" ]; then
-                #echo "ENV TRUE!!!+++++++++++++++"
+              if [ "$ename" = "$ENVIRONMENT" ]; then                
                 env_test=$eid
               fi;              
               ce_index=$(expr $ce_index + 1) 
