@@ -9,7 +9,7 @@ orbs:
 jobs:
   newman-collection-run:
     parameters:
-      envs:
+      environms:
         description: project environments
         default: "'14096194' '14096194'"
         type: string
