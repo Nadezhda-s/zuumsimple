@@ -76,6 +76,8 @@ jobs:
               c_index=$(expr $c_index + 1)              
             done;
             
+      #- newman/newman-run:
+          #collection: https://api.getpostman.com/collections/14096194-232d230d-7d84-4e62-840e-276098f18a42?apikey=$API_KEY --environment https://api.getpostman.com/environments/ENVIRONMENT?apikey=$API_KEY             
       - store_artifacts:
           path: /tmp/artifacts-tests
       - store_test_results:
