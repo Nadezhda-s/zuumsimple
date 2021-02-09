@@ -25,9 +25,7 @@ jobs:
             #mkdir -p /tmp/test-results/;  
             #echo "my artifact files in a dir" > /tmp/artifacts-tests;
             printf "SRART code\n"            
-            c_line=1
-            CS=$(eval `echo "curl --silent --location --request GET \"https://api.getpostman.com/workspaces/$WORKSPACE\" --header \"X-API-Key: $API_KEY\""`)
-            echo "COLLLECTIONS: $CS"
+            c_line=1            
             COLLECTIONS=$(eval `echo "curl --silent --location --request GET \"https://api.getpostman.com/workspaces/$WORKSPACE\" --header \"X-API-Key: $API_KEY\"| jq -r '.workspace.collections[]'"`)
             ENVS=$(eval `echo "curl --silent --location --request GET \"https://api.getpostman.com/workspaces/$WORKSPACE\" --header \"X-API-Key: $API_KEY\"| jq -r '.workspace.environments[]'"`)
                        
