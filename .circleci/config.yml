@@ -10,9 +10,9 @@ jobs:
           name: Get collections
           command: |
               apk add --update curl
-              echo $COLLECTIONS | tr ';' '\n' | grep -v "^$" | while read COLLECTION; do curl -s https://api.getpostman.com/collections/$COLLECTION?apikey=$API_KEY >> collections.json; done
+              echo $COLLECTIONS | tr ';' '\n' | grep -v "^$" | while read COLLECTION; do curl -s https://api.getpostman.com/collections/$COLLECTION?apikey=$API_KEY -o $COLLECTION.json; done
+              cat ./*.json > collections.json
               cat collections.json
-
 #      - newman/newman-run:
 #          collection: https://api.getpostman.com/collections/$CURRENT_COLLECTIONS1?apikey=$API_KEY
 #          environment: https://api.getpostman.com/environments/$CURRENT_ENV1?apikey=$API_KEY
