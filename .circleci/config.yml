@@ -13,3 +13,9 @@ jobs:
       - checkout
       - newman/newman-run:
           collection: https://api.getpostman.com/workspaces/$WORKSPACE?apikey=$API_KEY
+
+workflows:
+  version: 2
+  Some Random Workflow:
+    jobs:
+      - newman-collection-run
