@@ -16,7 +16,7 @@ jobs:
 #              curl -s https://api.getpostman.com/environments/$CURRENT_ENV1?apikey=$API_KEY -o env.json
       - newman/newman-run:
            collection: ./coll.json
-           environment: https://api.getpostman.com/environments/14096194-1c865cca-b720-4d78-9a6d-0945faadb18e?apikey=$API_KEY
+           environment: https://api.getpostman.com/environments/$CURRENT_ENV1?apikey=$API_KEY
 
 workflows:
   version: 2
