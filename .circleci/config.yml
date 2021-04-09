@@ -9,7 +9,7 @@ jobs:
       - run:
           name: Get collections
           command: |
-              apk add --update -q curl | npm install postman-combine -g && mkdir -p collections
+              apk add --update -q curl && npm config set unsafe-perm true &&  npm install postman-combine -g && mkdir -p collections
               echo $COLLECTIONS | tr ';' '\n' | grep -v "^$" | while read COLLECTION; do curl -s https://api.getpostman.com/collections/$COLLECTION?apikey=$API_KEY -o collections/$COLLECTION.coll.json; done
               curl -s https://api.getpostman.com/environments/$COLLECTIONS?apikey=$API_KEY -o env.json
               postman-combine -dest collection.json -d collections
