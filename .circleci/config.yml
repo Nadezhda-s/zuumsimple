@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  newman: postman/newman@0.0.2
+  newman: postman/newman@1.0.0
 jobs:
   newman-collection-run:
 #    parameters:
@@ -14,7 +14,7 @@ jobs:
       - run:
           name: Get collections
           command: |
-              apk add curl
+#              apk add curl
               echo $CURRENT_COLLECTIONS | tr ';' '\n' | while read COLLECTION; do curl -s https://api.getpostman.com/collections/$COLLECTION?apikey=$API_KEY >> collections.json ; done
               cat collections.json
 #| sed 's/;/\n/g'
