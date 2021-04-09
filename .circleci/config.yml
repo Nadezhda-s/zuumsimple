@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  newman: postman/newman@1.0.0
+  newman-orb: charge-tech/newman-orb@1.0.0
 jobs:
   newman-collection-run:
 #    parameters:
