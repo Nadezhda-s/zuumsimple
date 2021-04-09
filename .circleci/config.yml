@@ -7,7 +7,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: 
+          name: Sequential collections run
           command: |
               for COLL_ID in `echo $COLLECTIONS | tr ';' '\n'`
               do
