@@ -15,8 +15,9 @@ jobs:
           name: Get collections
           command: |
               pwd
-              echo $CURRENT_COLLECTIONS
-              echo $CURRENT_COLLECTIONS1
+              echo $CURRENT_COLLECTIONS | tr ';' '\n' | while read line; do echo $line; done
+#| sed 's/;/\n/g'
+#              cat 1.tmp
 #      - newman/newman-run:
 #          collection: https://api.getpostman.com/collections/$CURRENT_COLLECTIONS1?apikey=$API_KEY
 #          environment: https://api.getpostman.com/environments/$CURRENT_ENV1?apikey=$API_KEY
