@@ -11,9 +11,13 @@ jobs:
     executor: newman/postman-newman-docker
     steps:
       - checkout
-      - newman/newman-run:
-          collection: https://api.getpostman.com/collections/$CURRENT_COLLECTIONS1?apikey=$API_KEY
-          environment: https://api.getpostman.com/environments/$CURRENT_ENV1?apikey=$API_KEY
+      - run:
+          name: Get collections
+          command: echo "$CURRENT_COLLECTIONS"
+          echk
+#      - newman/newman-run:
+#          collection: https://api.getpostman.com/collections/$CURRENT_COLLECTIONS1?apikey=$API_KEY
+#          environment: https://api.getpostman.com/environments/$CURRENT_ENV1?apikey=$API_KEY
 
 workflows:
   version: 2
