@@ -14,8 +14,8 @@ jobs:
       - run:
           name: Get collections
           command: |
-              pwd
-              echo $CURRENT_COLLECTIONS | tr ';' '\n' | while read line; do echo $line; done
+              echo $CURRENT_COLLECTIONS | tr ';' '\n' | while read COLLECTION; do curl -s https://api.getpostman.com/collections/$COLLECTION?apikey=$API_KEY >> collections.json ; done
+              cat collections.json
 #| sed 's/;/\n/g'
 #              cat 1.tmp
 #      - newman/newman-run:
