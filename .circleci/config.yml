@@ -3,16 +3,16 @@ orbs:
   newman: postman/newman@0.0.2
 jobs:
   newman-collection-run:
-    parameters:
-      environms:
-        description: project environments
-        default: "'14096194-232d230d-7d84-4e62-840e-276098f18a42' '14096194-747dceb4-778a-4653-9566-22572ff9c169'"
-        type: string
+#    parameters:
+#      environms:
+#        description: project environments
+#        default: "'14096194-232d230d-7d84-4e62-840e-276098f18a42' '14096194-747dceb4-778a-4653-9566-22572ff9c169'"
+#        type: string
     executor: newman/postman-newman-docker
     steps:
       - checkout
       - newman/newman-run:
-          collection: https://api.getpostman.com/workspaces/$WORKSPACE?apikey=$API_KEY
+          collection: https://api.getpostman.com/collections/14096194-1c865cca-b720-4d78-9a6d-0945faadb18e?apikey=$API_KEY
 
 workflows:
   version: 2
