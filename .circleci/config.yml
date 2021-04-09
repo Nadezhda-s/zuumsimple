@@ -14,11 +14,9 @@ jobs:
       - run:
           name: Get collections
           command: |
-#              apk add curl
               echo $CURRENT_COLLECTIONS | tr ';' '\n'
-
-#| while read COLLECTION; do curl -s https://api.getpostman.com/collections/$COLLECTION?apikey=$API_KEY >> collections.json ; done
               cat collections.json
+              curl -s https://api.getpostman.com/collections/$COLLECTION?apikey=$API_KEY
 
 #      - newman/newman-run:
 #          collection: https://api.getpostman.com/collections/$CURRENT_COLLECTIONS1?apikey=$API_KEY
