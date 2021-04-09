@@ -9,17 +9,14 @@ jobs:
       - run:
           name: Get collections
           command: |
-              apk add --update -q curl && npm config set unsafe-perm true && npm install postman-combine -g && mkdir -p collections
-              npm -v
-              echo $COLLECTIONS | tr ';' '\n' | grep -v "^$" | while read COLLECTION; do curl -s https://api.getpostman.com/collections/$COLLECTION?apikey=$API_KEY -o collections/$$.json; done
+              apk add --update -q curl jq && mkdir -p collections
+              curl https://api.getpostman.com/collections/14096194-1c865cca-b720-4d78-9a6d-0945faadb18e -H "X-API-Key: PMAK-60226173af8f080031e16f04-bd3d4aefcae9f39ea2f19a9a40230b1833" | jq -c '.collection' > 111.json
+              curl https://api.getpostman.com/collections/14096194-6b5bba21-cb72-4cb9-9556-166991de37ff -H "X-API-Key: PMAK-60226173af8f080031e16f04-bd3d4aefcae9f39ea2f19a9a40230b1833" | jq -c '.collection' >> 111.json
+
               curl -s https://api.getpostman.com/environments/$COLLECTIONS?apikey=$API_KEY -o env.json
-              postman-combine -h
-              postman-combine -dest ./collection.json -d ./collections
-#              curl -s https://api.getpostman.com/environments/$CURRENT_ENV1?apikey=$API_KEY -o env.json
-#              ls -la
-#      - newman/newman-run:
-#           collection: run-collections-in-directory.js
-#           environment: ./env.json
+      - newman/newman-run:
+           collection: ./111.json
+           environment: ./env.json
 
 workflows:
   version: 2
