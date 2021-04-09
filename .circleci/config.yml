@@ -12,8 +12,8 @@ jobs:
     steps:
       - checkout
       - newman/newman-run:
-          collection: https://api.getpostman.com/collections/14096194-1c865cca-b720-4d78-9a6d-0945faadb18e?apikey=PMAK-60226173af8f080031e16f04-bd3d4aefcae9f39ea2f19a9a40230b1833
-          environment: https://api.getpostman.com/environments/e57a08f6-dcf8-4c94-851d-4f2e8dc200d6?apikey=PMAK-60226173af8f080031e16f04-bd3d4aefcae9f39ea2f19a9a40230b1833
+          collection: https://api.getpostman.com/collections/$CURRENT_COLLECTIONS1?apikey=$API_KEY
+          environment: https://api.getpostman.com/environments/$CURRENT_ENV1?apikey=$API_KEY
 
 workflows:
   version: 2
