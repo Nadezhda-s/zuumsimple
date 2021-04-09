@@ -9,15 +9,15 @@ jobs:
       - run:
           name: Get collections
           command: |
-              apk add --update -q curl > /dev/null 2>&1
-              mkdir -p examples
-              curl https://raw.githubusercontent.com/postmanlabs/newman/develop/examples/run-collections-in-directory.js -o run-collections-in-directory.js
-              echo $COLLECTIONS | tr ';' '\n' | grep -v "^$" | while read COLLECTION; do curl -s https://api.getpostman.com/collections/$COLLECTION?apikey=$API_KEY -o examples/$COLLECTION.coll.json; done
-              curl -s https://api.getpostman.com/environments/$CURRENT_ENV1?apikey=$API_KEY -o env.json
-              ls -la
-      - newman/newman-run:
-           collection: run-collections-in-directory.js
-           environment: ./env.json
+              apk add --update -q curl | npm install postman-combine-collections --save && mkdir -p collections
+              echo $COLLECTIONS | tr ';' '\n' | grep -v "^$" | while read COLLECTION; do curl -s https://api.getpostman.com/collections/$COLLECTION?apikey=$API_KEY -o collections/$COLLECTION.coll.json; done
+              curl -s https://api.getpostman.com/environments/$COLLECTIONS?apikey=$API_KEY -o env.json
+              postman-combine-collections -f collections/*.json -o collection.json
+#              curl -s https://api.getpostman.com/environments/$CURRENT_ENV1?apikey=$API_KEY -o env.json
+#              ls -la
+#      - newman/newman-run:
+#           collection: run-collections-in-directory.js
+#           environment: ./env.json
 
 workflows:
   version: 2
