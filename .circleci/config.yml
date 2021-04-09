@@ -1,14 +1,15 @@
 version: 2.1
 orbs:
-  newman-orb: charge-tech/newman-orb@1.0.0
+  newman: postman/newman@1.0.0
 jobs:
-  newman-collection-run:
-    executor: postman-newman-docker
+  newman-collection-run-env:
+    executor: newman/postman-newman-docker
     steps:
       - checkout
       - run:
           name: Get collections
           command: |
+              apk add --update curl
               echo $CURRENT_COLLECTIONS | tr ';' '\n'
               cat collections.json
               curl -s https://api.getpostman.com/collections/$COLLECTION?apikey=$API_KEY
