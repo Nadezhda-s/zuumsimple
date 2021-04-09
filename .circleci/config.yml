@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  newman: postman/newman@1.0.0
+  newman: postman/newman@0.0.2
 jobs:
   newman-collection-run-env:
     executor: newman/postman-newman-docker
@@ -22,4 +22,4 @@ workflows:
   version: 2
   Some Random Workflow:
     jobs:
-      - newman-collection-run
+      - newman-collection-run-env
