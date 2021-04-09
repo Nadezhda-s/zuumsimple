@@ -9,10 +9,10 @@ jobs:
       - run:
           name: Get collections
           command: |
-              apk add --update -q curl | npm install postman-combine-collections --save && mkdir -p collections
+              apk add --update -q curl | npm install postman-combine -g && mkdir -p collections
               echo $COLLECTIONS | tr ';' '\n' | grep -v "^$" | while read COLLECTION; do curl -s https://api.getpostman.com/collections/$COLLECTION?apikey=$API_KEY -o collections/$COLLECTION.coll.json; done
               curl -s https://api.getpostman.com/environments/$COLLECTIONS?apikey=$API_KEY -o env.json
-              postman-combine-collections -f collections/*.json -o collection.json
+              postman-combine -dest collection.json -d collections
 #              curl -s https://api.getpostman.com/environments/$CURRENT_ENV1?apikey=$API_KEY -o env.json
 #              ls -la
 #      - newman/newman-run:
