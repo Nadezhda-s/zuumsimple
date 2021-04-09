@@ -11,7 +11,7 @@ jobs:
           command: |
               apk add --update -q curl jq && npm config set unsafe-perm true && npm install postman-combine -g && mkdir -p collections
               echo $COLLECTIONS | tr ';' '\n' | while read COLLECTION
-              do curl -s https://api.getpostman.com/collections/$COLLECTION?apikey=$API_KEY | jq -c '.collection' > collections/`date +"%s%N"`.json; done
+              do curl -s https://api.getpostman.com/collections/$COLLECTION?apikey=$API_KEY | jq -c '.collection' > collections/`echo $(($(date +%s%N)/1000000))`.json; done
               postman-combine -dest coll.json -d collections
       - newman/newman-run:
            collection: coll.json
