@@ -13,7 +13,10 @@ jobs:
       - checkout
       - run:
           name: Get collections
-          command: echo "$CURRENT_COLLECTIONS"
+          command: |
+              pwd
+              echo $CURRENT_COLLECTIONS
+              echo $CURRENT_COLLECTIONS1
 #      - newman/newman-run:
 #          collection: https://api.getpostman.com/collections/$CURRENT_COLLECTIONS1?apikey=$API_KEY
 #          environment: https://api.getpostman.com/environments/$CURRENT_ENV1?apikey=$API_KEY
