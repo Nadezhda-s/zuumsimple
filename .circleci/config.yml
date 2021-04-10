@@ -10,12 +10,12 @@ jobs:
           name: Sequential collections run
           command: |
               apk add -uq curl jq
-              ENV_ID=`curl https://api.getpostman.com/environments?apikey=$API_KEY | jq '.environments[] | select(.name=="$ENV")' | jq '.id'`
-              ENV_ID=$(curl -s https://api.getpostman.com/environments?apikey=$API_KEY | jq -r --arg ENV "$ENV" '.environments[] | select(.name==$ENV) | .id')
+              ENV_ID=$(curl -s https://api.getpostman.com/environments?apikey=$API_KEY | jq -r --arg ENV_NAME "$ENV_NAME" '.environments[] | select(.name==$ENV_NAME) | .id')
+
               echo $COLLECTIONS | tr ';' '\n' | while read COLL_NAME
               do
                   COLL_ID=$(curl -s https://api.getpostman.com/collections?apikey=$API_KEY | jq -r --arg COLL_NAME "$COLL_NAME" '.collections[] | select(.name==$COLL_NAME) | .id')
-                  echo newman run https://api.getpostman.com/collections/$COLL_ID?apikey=$API_KEY --environment https://api.getpostman.com/environments/$ENV_ID?apikey=$API_KEY
+                  newman run https://api.getpostman.com/collections/$COLL_ID?apikey=$API_KEY --environment https://api.getpostman.com/environments/$ENV_ID?apikey=$API_KEY
               done
 
 workflows:
