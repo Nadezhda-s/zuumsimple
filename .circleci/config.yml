@@ -9,8 +9,7 @@ jobs:
       - run:
           name: Sequential collections run
           command: |
-              apk add --update -q curl jq
-              apk add --help
+              apk add -uq curl jq
               ENV_ID=`curl https://api.getpostman.com/environments?apikey=$API_KEY | jq '.environments[] | select(.name=="$ENV")' | jq '.id'`
               echo $COLLECTIONS | tr ';' '\n' | while read COLL_NAME
               do
