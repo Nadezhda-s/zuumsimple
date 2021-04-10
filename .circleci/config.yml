@@ -9,9 +9,13 @@ jobs:
       - run:
           name: Sequential collections run
           command: |
-              for COLL_ID in `echo $COLLECTIONS | tr ';' '\n'`
+              apk add --update -q curl jq
+              apk add --help
+              ENV_ID=`curl https://api.getpostman.com/environments?apikey=$API_KEY | jq '.environments[] | select(.name=="$ENV")' | jq '.id'`
+              echo $COLLECTIONS | tr ';' '\n' | while read COLL_NAME
               do
-                  newman run https://api.getpostman.com/collections/$COLL_ID?apikey=$API_KEY --environment https://api.getpostman.com/environments/$ENV_ID?apikey=$API_KEY
+                  COLL_ID=$(curl -s https://api.getpostman.com/collections?apikey=$API_KEY | jq -r --arg COLL_NAME "$COLL_NAME" '.collections[] | select(.name==$COLL_NAME) | .id')
+                  echo newman run https://api.getpostman.com/collections/$COLL_ID?apikey=$API_KEY --environment https://api.getpostman.com/environments/$ENV_ID?apikey=$API_KEY
               done
 
 workflows:
@@ -19,3 +23,9 @@ workflows:
   Some Random Workflow:
     jobs:
       - newman-collection-env
+
+
+
+
+
+
