@@ -11,6 +11,7 @@ jobs:
           command: |
               apk add -uq curl jq
               ENV_ID=`curl https://api.getpostman.com/environments?apikey=$API_KEY | jq '.environments[] | select(.name=="$ENV")' | jq '.id'`
+              ENV_ID=$(curl -s https://api.getpostman.com/environments?apikey=$API_KEY | jq -r --arg ENV "$ENV" '.environments[] | select(.name==$ENV) | .id')
               echo $COLLECTIONS | tr ';' '\n' | while read COLL_NAME
               do
                   COLL_ID=$(curl -s https://api.getpostman.com/collections?apikey=$API_KEY | jq -r --arg COLL_NAME "$COLL_NAME" '.collections[] | select(.name==$COLL_NAME) | .id')
